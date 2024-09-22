@@ -3,8 +3,9 @@
 using Logger;
 
 Console.WriteLine("---------Log Processor-------");
-
-LogProcessor logObject = new InfoLogProcessor(new DebugLogProcessor( new ErrorLogProcessor(null)));
+ILogSink sink = new ConsoleSink();
+sink = new FileSink("log");
+LogProcessor logObject = new InfoLogProcessor(new DebugLogProcessor( new ErrorLogProcessor(null,sink),sink),sink);
 
 logObject.Log(LogLevel.Error, "Exception Happens");
 logObject.Log(LogLevel.Debug, "Debug The Error");

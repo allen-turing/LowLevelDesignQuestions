@@ -3,10 +3,12 @@ namespace Logger;
 public abstract class LogProcessor
 {
     private readonly LogProcessor _nextProcessor;
+    public readonly ILogSink _sink;
 
-    public LogProcessor(LogProcessor nextProcessor)
+    public LogProcessor(LogProcessor nextProcessor, ILogSink sink)
     {
         _nextProcessor = nextProcessor;
+        _sink = sink;
     }
 
     public virtual void Log(LogLevel level, string message)

@@ -2,7 +2,7 @@ namespace Logger;
 
 public class ErrorLogProcessor : LogProcessor
 {
-    public ErrorLogProcessor(LogProcessor nextProcessor) : base(nextProcessor)
+    public ErrorLogProcessor(LogProcessor nextProcessor, ILogSink sink) : base(nextProcessor,sink)
     {
     }
 
@@ -10,7 +10,7 @@ public class ErrorLogProcessor : LogProcessor
     {
         if (level == LogLevel.Error)
         {
-            Console.WriteLine($"ERROR: {message}");
+            _sink.Log(message, level);
             return;
         }
 

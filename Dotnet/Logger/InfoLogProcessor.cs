@@ -2,7 +2,7 @@ namespace Logger;
 
 public class InfoLogProcessor : LogProcessor
 {
-    public InfoLogProcessor(LogProcessor nextProcessor) : base(nextProcessor)
+    public InfoLogProcessor(LogProcessor nextProcessor, ILogSink sink) : base(nextProcessor,sink)
     {
     }
 
@@ -10,7 +10,7 @@ public class InfoLogProcessor : LogProcessor
     {
         if (level == LogLevel.Info)
         {
-            Console.WriteLine($"INFO: {message}");
+             _sink.Log(message, level);
             return;
         }
         base.Log(level, message);

@@ -2,7 +2,7 @@ namespace Logger;
 
 public class DebugLogProcessor : LogProcessor
 {
-    public DebugLogProcessor(LogProcessor nextProcessor) : base(nextProcessor)
+    public DebugLogProcessor(LogProcessor nextProcessor,ILogSink sink) : base(nextProcessor,sink)
     {
         
     }
@@ -11,7 +11,7 @@ public class DebugLogProcessor : LogProcessor
     {
         if (level == LogLevel.Debug)
         {
-            Console.WriteLine($"DEBUG: {message}");
+            _sink.Log(message, level);
             return; 
         }
         base.Log(level, message);
