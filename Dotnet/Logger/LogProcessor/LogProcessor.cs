@@ -1,4 +1,6 @@
-namespace Logger;
+using Logger.Sinks;
+
+namespace Logger.LogProcessor;
 
 public abstract class LogProcessor
 {

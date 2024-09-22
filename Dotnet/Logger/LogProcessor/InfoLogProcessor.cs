@@ -1,8 +1,10 @@
-namespace Logger;
+using Logger.Sinks;
+
+namespace Logger.LogProcessor;
 
 public class InfoLogProcessor : LogProcessor
 {
-    public InfoLogProcessor(LogProcessor nextProcessor, ILogSink sink) : base(nextProcessor,sink)
+    public InfoLogProcessor(Logger.LogProcessor.LogProcessor nextProcessor, ILogSink sink) : base(nextProcessor,sink)
     {
     }
 

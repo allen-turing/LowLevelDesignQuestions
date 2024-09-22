@@ -1,3 +1,6 @@
 [2024-09-22T18:24:06 ERROR] Exception Happens
 [2024-09-22T18:24:06 DEBUG] Debug The Error
 [2024-09-22T18:24:06 INFO] Information Details
+[2024-09-22T18:32:18 ERROR] Exception Happens
+[2024-09-22T18:32:25 DEBUG] Debug The Error
+[2024-09-22T18:32:25 INFO] Information Details

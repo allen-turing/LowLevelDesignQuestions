@@ -8,7 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="LogFileSink\" />
+      <Folder Include="LogFileOutput\" />
     </ItemGroup>
 
 </Project>

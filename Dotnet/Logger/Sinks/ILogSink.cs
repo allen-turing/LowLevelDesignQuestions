@@ -1,4 +1,4 @@
-namespace Logger;
+namespace Logger.Sinks;
 
 public interface ILogSink
 {

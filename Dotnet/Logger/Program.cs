@@ -1,10 +1,12 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using Logger;
+using Logger.LogProcessor;
+using Logger.Sinks;
 
 Console.WriteLine("---------Log Processor-------");
 ILogSink sink = new ConsoleSink();
-sink = new FileSink("log");
+//sink = new FileSink("log");
 LogProcessor logObject = new InfoLogProcessor(new DebugLogProcessor( new ErrorLogProcessor(null,sink),sink),sink);
 
 logObject.Log(LogLevel.Error, "Exception Happens");

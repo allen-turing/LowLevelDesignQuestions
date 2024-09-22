@@ -1,4 +1,4 @@
-namespace Logger;
+namespace Logger.Sinks;
 
 public class FileSink : ILogSink
 {
@@ -11,7 +11,7 @@ public class FileSink : ILogSink
     public void Log(string message, LogLevel level)
     {
         string projectDirectory = Directory.GetParent(AppContext.BaseDirectory).Parent.Parent.Parent.FullName;
-        string fullFilePath = Path.Combine(projectDirectory,"LogFileSink", _fileName);
+        string fullFilePath = Path.Combine(projectDirectory,"LogFileOutput", _fileName);
         using StreamWriter streamWriter = new StreamWriter(fullFilePath, true);
         streamWriter.WriteLine($"[{DateTime.UtcNow:s} {level.ToString().ToUpper()}] {message}");
     }

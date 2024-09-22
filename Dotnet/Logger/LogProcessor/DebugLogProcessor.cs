@@ -1,8 +1,10 @@
-namespace Logger;
+using Logger.Sinks;
+
+namespace Logger.LogProcessor;
 
 public class DebugLogProcessor : LogProcessor
 {
-    public DebugLogProcessor(LogProcessor nextProcessor,ILogSink sink) : base(nextProcessor,sink)
+    public DebugLogProcessor(Logger.LogProcessor.LogProcessor nextProcessor,ILogSink sink) : base(nextProcessor,sink)
     {
         
     }
