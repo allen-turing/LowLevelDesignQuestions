@@ -51,14 +51,16 @@ public class StackOverflow
             Question = question2
         };
         question1 = questionService.AnswerQuestion(question1, answer1);
-        question1 = questionService.VoteAnswer(answer1, user1);
-        question1 = questionService.VoteAnswer(answer1, user2);
+        question1 = questionService.VoteAnswer(answer1, user1, VoteType.Upvote);
+        question1 = questionService.VoteAnswer(answer1, user2, VoteType.Upvote);
+        question1 = questionService.VoteQuestion(question1, user2, VoteType.Upvote);
 
         question2 = questionService.AnswerQuestion(question2, answer2);
-        question2 = questionService.VoteAnswer(answer2, user1);
-        question2 = questionService.VoteAnswer(answer2, user2);
-        question2 = questionService.VoteAnswer(answer2, user3);
-        question2 = questionService.VoteAnswer(answer2, user4);
+        question2 = questionService.VoteAnswer(answer2, user1, VoteType.Upvote);
+        question2 = questionService.VoteAnswer(answer2, user2, VoteType.Upvote);
+        question2 = questionService.VoteAnswer(answer2, user3, VoteType.Upvote);
+        question2 = questionService.VoteAnswer(answer2, user4, VoteType.Upvote);
+        question2 = questionService.VoteQuestion(question2, user4, VoteType.Upvote);
 
         var comment = new Comment
         {
@@ -87,13 +89,14 @@ public class StackOverflow
         Print(searchQuestionWithTag2, "--- Search Question With Tag : Oops---  ");
     }
 
-    private void Print<T>(T input, string description)
+    private static void Print<T>(T input, string description)
     {
         Console.WriteLine(description);
         var jsonOption = new JsonSerializerOptions
         {
             WriteIndented = true,
-            ReferenceHandler = ReferenceHandler.IgnoreCycles
+            ReferenceHandler = ReferenceHandler.IgnoreCycles,
+            Converters = { new JsonStringEnumConverter() }
         };
         var jsonString = JsonSerializer.Serialize(input, jsonOption);
         Console.WriteLine(jsonString);

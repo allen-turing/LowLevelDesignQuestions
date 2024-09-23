@@ -19,7 +19,6 @@ public class UserService
             Reputation = 0
         };
         _users.Add(user);
-        Console.WriteLine($"Created user {username} with email {email}.");
         return user;
     }
 
@@ -27,23 +26,15 @@ public class UserService
     {
         int reputationCount = questionService.GetAllQuestionsAnsweredByAUser(user).Count();
 
-        if (reputationCount >= 0 && reputationCount < 2)
+        user.Reputation = reputationCount switch
         {
-            user.Reputation = UserReputation.Beginer;
-        }
-        if (reputationCount >= 2 && reputationCount < 4)
-        {
-            user.Reputation = UserReputation.Intermediate;
-        }
-        if (reputationCount >= 4 && reputationCount < 6)
-        {
-            user.Reputation = UserReputation.Master;
-        }
-        if (reputationCount >= 6 && reputationCount < 8)
-        {
-            user.Reputation = UserReputation.SubjectMatterExpert;
-        }
-        
+            >= 0 and < 2 => UserReputation.Beginer,
+            >= 2 and < 4 => UserReputation.Intermediate,
+            >= 4 and < 6 => UserReputation.Master,
+            >= 6 and < 8 => UserReputation.SubjectMatterExpert,
+            _ => user.Reputation
+        };
+
         return user.Reputation;
     }
 

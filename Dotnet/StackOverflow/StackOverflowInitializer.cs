@@ -1,4 +1,4 @@
-﻿public class Program
+﻿public class StackOverflowInitializer
 {
     public static void Main(string[] args)
     {

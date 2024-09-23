@@ -6,9 +6,11 @@ namespace StackOverflow.Services;
 public class QuestionService
 {
     private readonly Dictionary<int,Question.Question> _questions;
+    private readonly List<Tag> _tags;
     public QuestionService()
     {
         _questions = new Dictionary<int, Question.Question>();
+        _tags = new List<Tag>();
     }
 
     public Question.Question CreateQuestion(string title, string description, User author, List<string> tagNames)
@@ -18,10 +20,9 @@ public class QuestionService
             Id = _questions.Count + 1,
             Title = title,
             Description = description,
-            Tag = tagNames.Select(tagName => new Tag {Id = _questions.Count + 1, Name = tagName}).ToList(),
+            Tag = SetTags(tagNames),
             Author = author,
             Answer = new List<Answer>(),
-            TotalVotes = 0,
             Comments = new List<Comment>(),
             CreatedOn = DateTime.Now,
         };
@@ -29,7 +30,15 @@ public class QuestionService
         _questions.Add(question.Id, question);
         return question;
     }
-    
+
+    private List<Tag> SetTags(List<string> tagNames)
+    {
+        int totalTags = _tags.Count;
+        var tags = tagNames.Select((tagName,index) => new Tag {Id = ++totalTags, Name = tagName}).ToList();
+        _tags.AddRange(tags);
+        return tags;
+    }
+
     public List<Question.Question> GetAllQuestions() => _questions.Values.ToList();
 
     public Question.Question AnswerQuestion(Question.Question question,Answer answer)
@@ -43,14 +52,30 @@ public class QuestionService
         return questionToAnswer;
     }
 
-    public Question.Question VoteAnswer(Answer answer, User voter)
+    public Question.Question VoteAnswer(Answer question, User voter, VoteType voteType)
     {
-        if (!_questions.TryGetValue(answer.Question.Id, out Question.Question questionToAnswer))
+        if (!_questions.TryGetValue(question.Question.Id, out Question.Question questionToAnswer))
+        {
+            throw new Exception("Question not found Against the Answer for Upvote");
+        }
+
+        question.Vote(voter,voteType);
+        var ansNumber = questionToAnswer.Answer?.FindIndex(_ => _.Id == question.Id);
+        if (questionToAnswer.Answer != null)
+            if (ansNumber != null)
+                questionToAnswer.Answer[ansNumber.Value] = question;
+        return questionToAnswer;
+    }
+    
+    public Question.Question VoteQuestion(Question.Question question, User voter, VoteType voteType)
+    {
+        if (!_questions.TryGetValue(question.Id, out Question.Question questionToAnswer))
         {
             throw new Exception("Question not found for Upvote");
         }
 
-        questionToAnswer.UpVote(voter);
+        questionToAnswer.Vote(voter,voteType);
+        
         return questionToAnswer;
     }
     

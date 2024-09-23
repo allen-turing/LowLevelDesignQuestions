@@ -12,12 +12,12 @@ public class Question
     public User Author { get; set; }
     
     public List<Answer>? Answer { get; set; }
-    public int TotalVotes { get; set; }
+    public int TotalVotes { get; private set; }
     private HashSet<int>? UserVotes { get; set; }
     public List<Comment>? Comments { get; set; }
     public DateTime CreatedOn { get; set; }
 
-    public void UpVote(User user)
+    public void Vote(User user, VoteType voteType)
     {
         if (UserVotes is null)
         {
@@ -25,7 +25,14 @@ public class Question
         }
         if (!UserVotes.Contains(user.Id))
         {
-            TotalVotes++;
+            if(voteType == VoteType.Upvote)
+            {
+                TotalVotes++;
+            }
+            else if (voteType == VoteType.Downvote)
+            {
+                TotalVotes--;
+            }
         }
     }
 }
