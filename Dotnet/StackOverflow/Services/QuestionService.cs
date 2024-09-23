@@ -7,10 +7,13 @@ public class QuestionService
 {
     private readonly Dictionary<int,Question.Question> _questions;
     private readonly List<Tag> _tags;
+    private readonly Dictionary<string,List<int>> _tagQuestionMapping;
     public QuestionService()
     {
         _questions = new Dictionary<int, Question.Question>();
         _tags = new List<Tag>();
+        _tagQuestionMapping = new Dictionary<string, List<int>>();
+        
     }
 
     public Question.Question CreateQuestion(string title, string description, User author, List<string> tagNames)
@@ -20,7 +23,7 @@ public class QuestionService
             Id = _questions.Count + 1,
             Title = title,
             Description = description,
-            Tag = SetTags(tagNames),
+            Tag = SetTags(tagNames, _questions.Count + 1),
             Author = author,
             Answer = new List<Answer>(),
             Comments = new List<Comment>(),
@@ -31,10 +34,22 @@ public class QuestionService
         return question;
     }
 
-    private List<Tag> SetTags(List<string> tagNames)
+    private List<Tag> SetTags(List<string> tagNames, int questionId)
     {
         int totalTags = _tags.Count;
-        var tags = tagNames.Select((tagName,index) => new Tag {Id = ++totalTags, Name = tagName}).ToList();
+        var tags = tagNames.Select((tagName) => new Tag {Id = ++totalTags, Name = tagName }).ToList();
+        foreach (var tag in tags)
+        {
+            tag.QuestionIds.Add(questionId);
+            if (_tagQuestionMapping.TryGetValue(tag.Name.ToLower(), out var value))
+            {
+                value.AddRange(tag.QuestionIds);
+            }
+            else
+            {
+                _tagQuestionMapping.Add(tag.Name.ToLower(), tag.QuestionIds);
+            }
+        };
         _tags.AddRange(tags);
         return tags;
     }
@@ -99,15 +114,16 @@ public class QuestionService
 
     public List<Question.Question> SearchQuestion(string tagName)
     {
+        var loweCaseTag = tagName.ToLower();
         var tagQuestions = new List<Question.Question>();
-        foreach (var question in _questions)
+
+        if (!_tagQuestionMapping.TryGetValue(loweCaseTag, out var questions))
         {
-            var questionId = question.Key;
-            if (question.Value.Tag.Any(_ => string.Equals(_.Name, tagName,StringComparison.CurrentCultureIgnoreCase))
-                || question.Value.Description.Contains(tagName))
-            {
-                tagQuestions.Add(question.Value);
-            }
+            throw new Exception("Tag not found");
+        }
+        foreach (var questionId in questions)
+        {
+            tagQuestions.Add(_questions[questionId]);
         }
         return tagQuestions;
     }
