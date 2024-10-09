@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StackOverflow", "StackOverf
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoffeeVendingMachine", "CoffeeVendingMachine\CoffeeVendingMachine.csproj", "{068F375D-BEBA-4956-977D-A5A2EAAB0ED9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrafficControlSignal", "TrafficControlSignal\TrafficControlSignal.csproj", "{02B51D0E-CEFF-403E-BBE0-EBE88F421AA2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingLot", "ParkingLot\ParkingLot.csproj", "{6C0F3B97-683D-43B1-A60B-7E28DCA1B72A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{068F375D-BEBA-4956-977D-A5A2EAAB0ED9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{068F375D-BEBA-4956-977D-A5A2EAAB0ED9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{068F375D-BEBA-4956-977D-A5A2EAAB0ED9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02B51D0E-CEFF-403E-BBE0-EBE88F421AA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02B51D0E-CEFF-403E-BBE0-EBE88F421AA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02B51D0E-CEFF-403E-BBE0-EBE88F421AA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02B51D0E-CEFF-403E-BBE0-EBE88F421AA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C0F3B97-683D-43B1-A60B-7E28DCA1B72A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C0F3B97-683D-43B1-A60B-7E28DCA1B72A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C0F3B97-683D-43B1-A60B-7E28DCA1B72A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C0F3B97-683D-43B1-A60B-7E28DCA1B72A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
